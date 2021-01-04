@@ -16,7 +16,7 @@ Requires(postun): systemd-units
 Requires: /usr/sbin/sendmail
 BuildRequires: /usr/sbin/sendmail libpcap-devel systemd
 
-Source0: ftp://ftp.ee.lbl.gov/arpwatch-%{version}.tar.gz
+Source0: https://ee.lbl.gov/downloads/arpwatch/arpwatch-%{version}.tar.gz
 Source1: arpwatch.service
 Source2: arpwatch.sysconfig
 # created by:
