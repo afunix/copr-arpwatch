@@ -1,0 +1,25 @@
+--- a/db.c	2000-10-01 01:39:58.000000000 +0200
++++ b/db.c	2017-02-24 12:20:47.310974498 +0100
+@@ -283,8 +283,10 @@ elist_alloc(register u_int32_t a, regist
+ 	BCOPY(e, ep->e, 6);
+ 	if (h == NULL && !initializing)
+ 		h = getsname(a);
+-	if (h != NULL && !isdigit((int)*h))
+-		strcpy(ep->h, h);
++	if (h != NULL && !isdigit((int)*h)) {
++		strncpy(ep->h, h, 34);
++		ep->h[33] = '\0';
++	}
+ 	ep->t = t;
+ 	return (ep);
+ }
+@@ -304,7 +306,8 @@ check_hname(register struct ainfo *ap)
+ 	if (!isdigit((int)*h) && strcmp(h, ep->h) != 0) {
+ 		syslog(LOG_INFO, "hostname changed %s %s %s -> %s",
+ 		    intoa(ap->a), e2str(ep->e), ep->h, h);
+-		strcpy(ep->h, h);
++		strncpy(ep->h, h, 34);
++		ep->h[33] = '\0';
+ 	}
+ }
+ 

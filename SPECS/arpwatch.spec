@@ -4,7 +4,7 @@
 Name: arpwatch
 Epoch: 14
 Version: 2.1a15
-Release: 36%{?dist}
+Release: 37%{?dist}
 Summary: Network monitoring tools for tracking IP addresses on a network
 Group: Applications/System
 License: BSD with advertising
@@ -44,6 +44,7 @@ Patch18: arpwatch-aarch64.patch
 Patch19: arpwatch-promisc.patch
 Patch20: arpwatch-ethernet-address-format.patch
 Patch21: arpwatch-zero-source-ip.patch
+Patch22: arpwatch-strcpy.patch
 
 %description
 The arpwatch package contains arpwatch and arpsnmp.  Arpwatch and
@@ -79,6 +80,7 @@ network.
 %patch19 -p1 -b .promisc
 %patch20 -p1 -b .ethernet-address
 %patch21 -p1 -b .zero-source-ip
+%patch22 -p1 -b .strcpy
 
 %build
 %configure
@@ -158,6 +160,9 @@ fi
 %attr(0644,-,arpwatch) %verify(not md5 size mtime) %config(noreplace) %{_vararpwatch}/ethercodes.dat
 
 %changelog
+* Sun Jan  3 2021 Pavel Malyshev <p.malishev@gmail.com> - 14:2.1a15-37
+- fix of a crash in case hostname is longer than 33 characters (#0012881, #0017807)
+
 * Wed Mar 22 2017 Jan Synáček <jsynacek@redhat.com> - 14:2.1a15-36
 - refix: arpwatch detects flip flop of 0.0.0.0 for multiple DHCP Clients (#1408894)
 
